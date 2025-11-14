@@ -162,7 +162,7 @@ namespace RAWSimO.Visualization
         /// <summary>
         /// A directory to save snapshots to.
         /// </summary>
-        string _snapshotDir = "snapshots";
+        string _snapshotDir = "capturas";
 
         /// <summary>
         /// The list of all tiers currently available for visualization.
@@ -352,14 +352,14 @@ namespace RAWSimO.Visualization
                 if (_instanceInvalidated)
                 {
                     // Instance was invalidated
-                    MessageBox.Show("Instance was invalidated by an operation and cannot execute anymore.\nIf you modified the instance, please save it to a file and reload it to make sure initialization was done correctly.", "Invalid instance", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("La instancia se invalidó por una operación y ya no puede ejecutarse.\nSi modificaste la instancia, guárdala en un archivo y vuelve a cargarla para asegurar una inicialización correcta.", "Instancia no válida", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (_instance != null)
                 {
                     // Log start
                     LogLine(""); LogLine("");
-                    LogLine("<<< Starting simulation >>>");
+                    LogLine("<<< Iniciando simulación >>>");
                     // Handle UI elements
                     DisableButtons();
                     // Execute
@@ -385,6 +385,43 @@ namespace RAWSimO.Visualization
         private void SetUpdaterate(double rate) { this.Dispatcher.Invoke(() => { TextBlockUpdateSpeed.Text = rate.ToString(IOConstants.FORMATTER); }); }
         private double GetUpdaterate() { double value = 1.0; this.Dispatcher.Invoke(() => { value = double.Parse(TextBlockUpdateSpeed.Text, IOConstants.FORMATTER); }); return value; }
         private void UpdateSimulationTime(double time) { TimeSpan simulationTime = TimeSpan.FromSeconds(time); this.Dispatcher.Invoke(() => { TextBlockSolutionTime.Text = simulationTime.ToString(IOConstants.TIMESPAN_FORMAT_HUMAN_READABLE_DAYS); }); }
+        private static string GetSelectedComboBoxTag(ComboBox comboBox)
+        {
+            return comboBox.SelectedValue as string
+                ?? (comboBox.SelectedItem as ComboBoxItem)?.Tag as string
+                ?? comboBox.Text;
+        }
+        private static string GetHeatModeDisplayName(string value)
+        {
+            switch (value)
+            {
+                case nameof(HeatMode.None): return "Ninguno";
+                case nameof(HeatMode.CurrentCapacityUtilization): return "Uso actual de capacidad";
+                case nameof(HeatMode.NumItemsHandled): return "Número de artículos manejados";
+                case nameof(HeatMode.NumBundlesHandled): return "Número de lotes manejados";
+                case nameof(HeatMode.AverageFrequency): return "Frecuencia media de artículos";
+                case nameof(HeatMode.MaxFrequency): return "Frecuencia máxima de artículos";
+                case nameof(HeatMode.AverageStaticFrequency): return "Frecuencia media estática";
+                case nameof(HeatMode.MaxStaticFrequency): return "Frecuencia máxima estática";
+                case nameof(HeatMode.StorageType): return "Tipo de almacenamiento";
+                case nameof(HeatMode.CacheType): return "Tipo de caché";
+                case nameof(HeatMode.ProminenceValue): return "Valor de prominencia";
+                case nameof(HeatMode.PodSpeed): return "Velocidad del pod";
+                case nameof(HeatMode.PodUtility): return "Utilidad del pod";
+                case nameof(HeatMode.PodCombinedValue): return "Valor combinado del pod";
+                default: return value;
+            }
+        }
+        private static string GetBotColorModeDisplayName(string value)
+        {
+            switch (value)
+            {
+                case nameof(BotColorMode.DefaultBotDefaultState): return "Predeterminado (colores por estado)";
+                case nameof(BotColorMode.RainbowBotSingleState): return "Arcoíris (estado único)";
+                case nameof(BotColorMode.RainbowBotDefaultState): return "Arcoíris (estados por defecto)";
+                default: return value;
+            }
+        }
         private void InitVisuals()
         {
             // Mark the attached visualization
@@ -408,7 +445,7 @@ namespace RAWSimO.Visualization
                 new SimulationAnimationConfig()
                 {
                     // The level of detail for drawing
-                    DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), ComboBoxDrawMode2D.Text),
+                    DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), GetSelectedComboBoxTag(ComboBoxDrawMode2D)),
                     // Draw goal marker?
                     DrawGoal = CheckBoxVisDrawGoalMarker.IsChecked == true,
                     // Draw destination marker?
@@ -431,7 +468,7 @@ namespace RAWSimO.Visualization
                 new SimulationAnimationConfig()
                 {
                     // The level of detail for drawing
-                    DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), ComboBoxDrawMode3D.Text),
+                    DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), GetSelectedComboBoxTag(ComboBoxDrawMode3D)),
                     // Draw goal marker?
                     DrawGoal = CheckBoxVisDrawGoalMarker.IsChecked == true,
                     // Draw destination marker?
@@ -456,12 +493,12 @@ namespace RAWSimO.Visualization
             // Init heat color mode enumeration in combobox
             ComboBoxHeatMode.Items.Clear();
             foreach (var item in Enum.GetNames(typeof(HeatMode)))
-                ComboBoxHeatMode.Items.Add(item);
+                ComboBoxHeatMode.Items.Add(new ComboBoxItem { Content = GetHeatModeDisplayName(item), Tag = item });
             ComboBoxHeatMode.SelectedIndex = 0;
             // Init bot color mode enumeration in combobox
             ComboBoxBotColoringMode.Items.Clear();
             foreach (var item in Enum.GetNames(typeof(BotColorMode)))
-                ComboBoxBotColoringMode.Items.Add(item);
+                ComboBoxBotColoringMode.Items.Add(new ComboBoxItem { Content = GetBotColorModeDisplayName(item), Tag = item });
             ComboBoxBotColoringMode.SelectedIndex = 0;
         }
         private void DisableButtons()
@@ -599,28 +636,28 @@ namespace RAWSimO.Visualization
                     if (errors.Any())
                     {
                         // Show some info about the recognized errors
-                        StringBuilder warningMsg = new StringBuilder("Sanity checking the instance returned negative!\nThe following errors were found:\n");
+                        StringBuilder warningMsg = new StringBuilder("La comprobación de coherencia de la instancia devolvió errores.\nSe encontraron los siguientes problemas:\n");
                         foreach (var errorType in errors.Select(e => e.Item1).Distinct())
                             warningMsg.AppendLine(errorType.ToString() + ": " + _instance.SanityGetDescription(errorType));
-                        warningMsg.AppendLine("The detailed error list follows:");
+                        warningMsg.AppendLine("La lista detallada de errores es la siguiente:");
                         foreach (var error in errors)
                             warningMsg.AppendLine(error.Item1.ToString() + ": " + error.Item2);
-                        MessageBox.Show(warningMsg.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(warningMsg.ToString(), "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
                         // Show success
-                        MessageBox.Show("No errors encountered!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("¡No se encontraron errores!", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
                 {
                     string msg =
-                        "An exception occurred while sanity-checking - Something went horribly wrong!\n" +
-                        "Here are some details:\n" +
-                        "Message: " + ex.Message + "\n" +
-                        "Stacktrace:\n" + ex.StackTrace + "\n" +
-                        "Inner:\n" + ex.InnerException;
+                        "Se produjo una excepción durante la comprobación de coherencia: ¡algo salió muy mal!\n" +
+                        "Detalles adicionales:\n" +
+                        "Mensaje: " + ex.Message + "\n" +
+                        "Pila de llamadas:\n" + ex.StackTrace + "\n" +
+                        "Excepción interna:\n" + ex.InnerException;
                     MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -706,7 +743,7 @@ namespace RAWSimO.Visualization
             OpenFileDialog settingDialog = new OpenFileDialog();
 
             // Set filter options and filter index.
-            settingDialog.Filter = "Setting files (.xsett)|*.xsett";
+            settingDialog.Filter = "Archivos de configuración (.xsett)|*.xsett";
             settingDialog.FilterIndex = 1;
             settingDialog.Multiselect = false;
 
@@ -720,7 +757,7 @@ namespace RAWSimO.Visualization
                 OpenFileDialog configDialog = new OpenFileDialog();
 
                 // Set filter options and filter index.
-                configDialog.Filter = "Configuration files (.xconf)|*.xconf";
+                configDialog.Filter = "Archivos de configuración (.xconf)|*.xconf";
                 configDialog.FilterIndex = 1;
                 configDialog.Multiselect = false;
 
@@ -734,7 +771,7 @@ namespace RAWSimO.Visualization
                     OpenFileDialog instanceDialog = new OpenFileDialog();
 
                     // Set filter options and filter index.
-                    instanceDialog.Filter = "Instance files (.xinst,xlayo)|*.xinst;*.xlayo;";
+                    instanceDialog.Filter = "Archivos de instancia (.xinst,.xlayo)|*.xinst;*.xlayo;";
                     instanceDialog.FilterIndex = 1;
                     instanceDialog.Multiselect = false;
 
@@ -764,7 +801,7 @@ namespace RAWSimO.Visualization
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.FileName = _instance.GetMetaInfoBasedInstanceName(); // Default file name
                 dialog.DefaultExt = ".xinst"; // Default file extension
-                dialog.Filter = "XINST Files (.xinst)|*.xinst"; // Filter files by extension
+                dialog.Filter = "Archivos XINST (.xinst)|*.xinst"; // Filter files by extension
 
                 // Show save file dialog box
                 bool? userClickedOK = dialog.ShowDialog();
@@ -780,7 +817,7 @@ namespace RAWSimO.Visualization
             }
             else
             {
-                MessageBox.Show("Generate an instance first.");
+                MessageBox.Show("Genera primero una instancia.");
             }
         }
 
@@ -793,7 +830,7 @@ namespace RAWSimO.Visualization
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = _layoutConfig.GetMetaInfoBasedLayoutName(); // Default file name
             dialog.DefaultExt = ".xlayo"; // Default file extension
-            dialog.Filter = "XLAYO Files (.xlayo)|*.xlayo"; // Filter files by extension
+            dialog.Filter = "Archivos XLAYO (.xlayo)|*.xlayo"; // Filter files by extension
 
             // Show save file dialog box
             bool? userClickedOK = dialog.ShowDialog();
@@ -817,7 +854,7 @@ namespace RAWSimO.Visualization
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = _baseConfiguration.Name; // Default file name
             dialog.DefaultExt = ".xsett"; // Default file extension
-            dialog.Filter = "XSETT Files (.xsett)|*.xsett"; // Filter files by extension
+            dialog.Filter = "Archivos XSETT (.xsett)|*.xsett"; // Filter files by extension
 
             // Remove directory information of word-list file
             if (_baseConfiguration.InventoryConfiguration.ColoredWordConfiguration != null)
@@ -854,7 +891,7 @@ namespace RAWSimO.Visualization
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = _controlConfiguration.Name; // Default file name
             dialog.DefaultExt = ".xconf"; // Default file extension
-            dialog.Filter = "XCONF Files (.xconf)|*.xconf"; // Filter files by extension
+            dialog.Filter = "Archivos XCONF (.xconf)|*.xconf"; // Filter files by extension
 
             // Show save file dialog box
             bool? userClickedOK = dialog.ShowDialog();
@@ -880,35 +917,35 @@ namespace RAWSimO.Visualization
                 double probR; double probG; double probB; double probY; double weightMin; double weightMax;
                 wordFile = TextBoxOrderWordFile.Text;
                 try { timeMin = double.Parse(TextBoxOrderTimeMin.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the minimal time!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el tiempo mínimo."); }
                 try { timeMax = double.Parse(TextBoxOrderTimeMax.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal time!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el tiempo máximo."); }
                 try { seed = int.Parse(TextBoxOrderSeed.Text); }
-                catch (FormatException) { throw new FormatException("Error while parsing the seed!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la semilla."); }
                 try { count = int.Parse(TextBoxOrderCount.Text); }
-                catch (FormatException) { throw new FormatException("Error while parsing the order count!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la cantidad de pedidos."); }
                 try { positionMin = int.Parse(TextBoxOrderPositionMin.Text); }
-                catch (FormatException) { throw new FormatException("Error while parsing the minimal position count!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la cantidad mínima de posiciones."); }
                 try { positionMax = int.Parse(TextBoxOrderPositionMax.Text); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal position count!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la cantidad máxima de posiciones."); }
                 try { relativeBundleAmount = double.Parse(TextBoxOrderBundlesRelativeAmount.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal weight!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el peso máximo."); }
                 try { bundleSizeMin = int.Parse(TextBoxOrderBundleSizeMin.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal weight!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el peso máximo."); }
                 try { bundleSizeMax = int.Parse(TextBoxOrderBundleSizeMax.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal weight!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el peso máximo."); }
                 try { probR = double.Parse(TextBoxOrderR.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the probability for red!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la probabilidad de rojo."); }
                 try { probG = double.Parse(TextBoxOrderG.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the probability for green!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la probabilidad de verde."); }
                 try { probB = double.Parse(TextBoxOrderB.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the probability for blue!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la probabilidad de azul."); }
                 try { probY = double.Parse(TextBoxOrderY.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the probability for yellow!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar la probabilidad de amarillo."); }
                 try { weightMin = double.Parse(TextBoxOrderWeightMin.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the minimal weight!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el peso mínimo."); }
                 try { weightMax = double.Parse(TextBoxOrderWeightMax.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { throw new FormatException("Error while parsing the maximal weight!"); }
+                catch (FormatException) { throw new FormatException("Error al interpretar el peso máximo."); }
                 Dictionary<LetterColors, double> colorProbs = new Dictionary<LetterColors, double>();
                 if (probR > 0) { colorProbs[LetterColors.Red] = probR; }
                 if (probG > 0) { colorProbs[LetterColors.Green] = probG; }
@@ -924,7 +961,7 @@ namespace RAWSimO.Visualization
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.FileName = list.GetMetaInfoBasedOrderListName(); // Default file name
                 dialog.DefaultExt = ".xitem"; // Default file extension
-                dialog.Filter = "XITEM Files (.xitem)|*.xitem"; // Filter files by extension
+                dialog.Filter = "Archivos XITEM (.xitem)|*.xitem"; // Filter files by extension
 
                 // Show save file dialog box
                 bool? userClickedOK = dialog.ShowDialog();
@@ -939,7 +976,7 @@ namespace RAWSimO.Visualization
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(this, "Failure while parsing the parameters:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, "Error al interpretar los parámetros:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -956,7 +993,7 @@ namespace RAWSimO.Visualization
                 {
                     FileName = config.GetMetaInfoBasedName(), // Default file name
                     DefaultExt = ".xgenc", // Default file extension
-                    Filter = "XGENC Files (.xgenc)|*.xgenc" // Filter files by extension
+                    Filter = "Archivos XGENC (.xgenc)|*.xgenc" // Filter files by extension
                 };
 
                 // Show save file dialog box
@@ -972,12 +1009,12 @@ namespace RAWSimO.Visualization
                     // Generate diagram
                     InventoryInfoProcessor.PlotSimpleInventoryFrequencies(filename);
                     // Log
-                    LogLine("Saved item config to " + filename + " and generated a diagram for the file in the application directory!");
+                    LogLine("Configuración de artículos guardada en " + filename + " y diagrama generado en el directorio de la aplicación.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "Failure while generating the config:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, "Error al generar la configuración:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1016,11 +1053,11 @@ namespace RAWSimO.Visualization
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(this, "Failure while parsing the parameters:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, "Error al interpretar los parámetros:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(this, "Failure while generating the instance:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, "Error al generar la instancia:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1029,7 +1066,7 @@ namespace RAWSimO.Visualization
             if (_instance != null)
                 SanityCheckAndShowInfo();
             else
-                MessageBox.Show("No instance to check!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("No hay ninguna instancia para comprobar.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ButtonShowInfo_Click(object sender, RoutedEventArgs e)
@@ -1145,9 +1182,9 @@ namespace RAWSimO.Visualization
                 mouseButtonDown == MouseButton.Left)
             {
                 // Only allowed, if waypoints are visible
-                if (!((DetailLevel)Enum.Parse(typeof(DetailLevel), ComboBoxDrawMode2D.Text) == DetailLevel.Full))
+                if (!((DetailLevel)Enum.Parse(typeof(DetailLevel), GetSelectedComboBoxTag(ComboBoxDrawMode2D)) == DetailLevel.Full))
                 {
-                    MessageBox.Show("Cannot select invisible waypoints - enable drawing of waypoints first!", "Info", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("No es posible seleccionar puntos invisibles. Activa primero el dibujado de puntos.", "Información", MessageBoxButton.OK, MessageBoxImage.Warning);
                     e.Handled = true;
                     return;
                 }
@@ -1413,7 +1450,7 @@ namespace RAWSimO.Visualization
             // If the instance is executing, just quit here
             if (_running)
             {
-                MessageBox.Show("Cannot modify instance during execution!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No se puede modificar la instancia durante la ejecución.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 FadeOutSelectionRect();
                 return;
             }
@@ -1547,7 +1584,7 @@ namespace RAWSimO.Visualization
             }
             else
             {
-                LogLine("No instance initiated - load the instance first then connect to the server managing communication with the agents on the instance");
+                LogLine("No hay instancia iniciada. Carga una instancia antes de conectar con el servidor que gestiona la comunicación con los agentes.");
             }
         }
 
@@ -1598,7 +1635,7 @@ namespace RAWSimO.Visualization
             OpenFileDialog instanceDialog = new OpenFileDialog();
 
             // Set filter options and filter index.
-            instanceDialog.Filter = "XINST Files (.xinst)|*.xinst";
+            instanceDialog.Filter = "Archivos XINST (.xinst)|*.xinst";
             instanceDialog.FilterIndex = 1;
             instanceDialog.Multiselect = false;
 
@@ -1610,7 +1647,7 @@ namespace RAWSimO.Visualization
             {
                 // Save file path (for rendering)
                 _heatMapInstanceFile = instanceDialog.FileName;
-                TextBlockHeatInstance.Text = "Instance: " + System.IO.Path.GetFileName(_heatMapInstanceFile);
+                TextBlockHeatInstance.Text = "Instancia: " + System.IO.Path.GetFileName(_heatMapInstanceFile);
             }
         }
 
@@ -1620,7 +1657,7 @@ namespace RAWSimO.Visualization
             OpenFileDialog heatDataDialog = new OpenFileDialog();
 
             // Set filter options and filter index.
-            heatDataDialog.Filter = "HEAT Files (.heat)|*.heat";
+            heatDataDialog.Filter = "Archivos HEAT (.heat)|*.heat";
             heatDataDialog.FilterIndex = 1;
             heatDataDialog.Multiselect = false;
 
@@ -1642,7 +1679,7 @@ namespace RAWSimO.Visualization
                 {
                     // Save file path (for rendering)
                     _heatMapDataFile = heatDataDialog.FileName;
-                    TextBlockHeatDataFile.Text = "Data: " + System.IO.Path.GetFileName(_heatMapDataFile) + " (" + choices[_heatMapSubDataIndex] + ")";
+                    TextBlockHeatDataFile.Text = "Datos: " + System.IO.Path.GetFileName(_heatMapDataFile) + " (" + choices[_heatMapSubDataIndex] + ")";
                 }
             }
         }
@@ -1675,7 +1712,7 @@ namespace RAWSimO.Visualization
             else
             {
                 // Warn the user
-                MessageBox.Show("No data files defined - load them first!");
+                MessageBox.Show("No se han definido archivos de datos. Cárgalos primero.");
             }
         }
 
@@ -1693,7 +1730,7 @@ namespace RAWSimO.Visualization
             // Select instance resource directory
             using (System.Windows.Forms.FolderBrowserDialog instanceDirDialog = new System.Windows.Forms.FolderBrowserDialog())
             {
-                instanceDirDialog.Description = "Select directory containing all necessary instance files";
+                instanceDirDialog.Description = "Selecciona la carpeta que contiene todos los archivos necesarios de la instancia";
                 if (instanceDirDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     // Save instance dir
@@ -1701,7 +1738,7 @@ namespace RAWSimO.Visualization
                     // Select result directory
                     using (System.Windows.Forms.FolderBrowserDialog rootResultDirDialog = new System.Windows.Forms.FolderBrowserDialog())
                     {
-                        rootResultDirDialog.Description = "Select root directory containing all result directories";
+                        rootResultDirDialog.Description = "Selecciona la carpeta raíz que contiene todos los directorios de resultados";
                         if (rootResultDirDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             // Save result dir
@@ -1731,7 +1768,7 @@ namespace RAWSimO.Visualization
                         using (StreamReader sr = new StreamReader(path))
                             instanceName = sr.ReadToEnd().Trim();
                         // Log
-                        LogLine("Generating heatmap(s) for instance " + instanceName + " - directory " + i + " / " + resultDirectories.Length);
+                        LogLine("Generando mapa(s) de calor para la instancia " + instanceName + " - directorio " + i + " / " + resultDirectories.Length);
                         // See whether we have to load a new instance for the current result
                         if (System.IO.Path.GetFileNameWithoutExtension(_heatMapInstanceFile) != instanceName)
                         {
@@ -1777,7 +1814,7 @@ namespace RAWSimO.Visualization
                             }
                             else
                             {
-                                MessageBox.Show("Heatmaps can only be generated in 2D view!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Los mapas de calor solo pueden generarse en la vista 2D.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         }
@@ -1802,7 +1839,7 @@ namespace RAWSimO.Visualization
 
                 double stepLength;
                 try { stepLength = double.Parse(TextBoxHeatTimeWindowLength.Text, IOConstants.FORMATTER); }
-                catch (FormatException) { MessageBox.Show("Cannot parse time-window length!", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                catch (FormatException) { MessageBox.Show("No se puede interpretar la duración de la ventana temporal.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
                 stepLength = Math.Max(SimulationObserver.STEP_LENGTH_POSITION_POLL * 5, stepLength);
                 // --> Start rendering
                 // Disable buttons
@@ -1815,7 +1852,7 @@ namespace RAWSimO.Visualization
                     do
                     {
                         // Log
-                        LogLine("Generating heatmap for time-window: " + currentFilterLow.ToString(IOConstants.FORMATTER) + " -> " + currentFilterHigh.ToString(IOConstants.FORMATTER));
+                        LogLine("Generando mapa de calor para la ventana temporal: " + currentFilterLow.ToString(IOConstants.FORMATTER) + " -> " + currentFilterHigh.ToString(IOConstants.FORMATTER));
                         // Set time window
                         config.InitialBotPositions = currentFilterLow < 0 ? _heatBotStartingPositions : null;
                         config.DataTimeFilterLow = currentFilterLow;
@@ -1856,7 +1893,7 @@ namespace RAWSimO.Visualization
                             }
                             else
                             {
-                                MessageBox.Show("Heatmaps can only be generated in 2D view!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Los mapas de calor solo pueden generarse en la vista 2D.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         }
@@ -1870,7 +1907,7 @@ namespace RAWSimO.Visualization
             else
             {
                 // Warn the user
-                MessageBox.Show("No data files defined - load them first!");
+                MessageBox.Show("No se han definido archivos de datos. Cárgalos primero.");
             }
         }
 
@@ -1894,13 +1931,13 @@ namespace RAWSimO.Visualization
                 {
                     TextBoxHeatTilesX.Visibility = Visibility.Visible;
                     TextBoxHeatTileLengthX.Visibility = Visibility.Collapsed;
-                    CheckBoxHeatTileLengthCountSwitch.Content = "#Tiles (x):";
+                    CheckBoxHeatTileLengthCountSwitch.Content = "#Celdas (x):";
                 }
                 else
                 {
                     TextBoxHeatTilesX.Visibility = Visibility.Collapsed;
                     TextBoxHeatTileLengthX.Visibility = Visibility.Visible;
-                    CheckBoxHeatTileLengthCountSwitch.Content = "TileLength (x):";
+                    CheckBoxHeatTileLengthCountSwitch.Content = "Longitud de celda (x):";
                 }
             }
         }
@@ -1978,7 +2015,7 @@ namespace RAWSimO.Visualization
                     BichromaticColorTwo = secondColor, // The second color for bichromatic coloring
                 };
             }
-            catch (Exception) { MessageBox.Show("Cannot parse the parameters"); return null; }
+            catch (Exception) { MessageBox.Show("No se pueden interpretar los parámetros"); return null; }
             return config;
         }
 
@@ -2006,10 +2043,10 @@ namespace RAWSimO.Visualization
             this.Dispatcher.Invoke(() =>
             {
                 // Set meta-info for feedback
-                TextBlockHeatDrawingInfoTileLength.Text = "Tile-size: " +
+                TextBlockHeatDrawingInfoTileLength.Text = "Tamaño de celda: " +
                     _heatmapRenderer.TileLengthX.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER) + " x " +
                     _heatmapRenderer.TileLengthY.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
-                TextBlockHeatDrawingInfoRadius.Text = "Radius: " + _heatmapRenderer.Radius.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
+                TextBlockHeatDrawingInfoRadius.Text = "Radio: " + _heatmapRenderer.Radius.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
                 // Set opacity just in case it is not the default anymore
                 if (_heatmapRenderer.ResultImage != null)
                     _heatmapRenderer.ResultImage.Opacity = SliderHeatOpacity.Value;
@@ -2046,7 +2083,7 @@ namespace RAWSimO.Visualization
             OpenFileDialog instanceDialog = new OpenFileDialog();
 
             // Set filter options and filter index.
-            instanceDialog.Filter = "XINST Files (.xinst)|*.xinst";
+            instanceDialog.Filter = "Archivos XINST (.xinst)|*.xinst";
             instanceDialog.FilterIndex = 1;
             instanceDialog.Multiselect = false;
 
@@ -2060,7 +2097,7 @@ namespace RAWSimO.Visualization
                 OpenFileDialog locationDataDialog = new OpenFileDialog();
 
                 // Set filter options and filter index.
-                locationDataDialog.Filter = "LP HEAT Files (locationspolled.heat)|locationspolled.heat";
+                locationDataDialog.Filter = "Archivos LP HEAT (locationspolled.heat)|locationspolled.heat";
                 locationDataDialog.FilterIndex = 1;
                 locationDataDialog.Multiselect = false;
 
