@@ -147,14 +147,14 @@
             </Grid.RowDefinitions>
             <!-- Info-Box -->
             <StackPanel Background="{x:Null}" Grid.Row="0" Grid.Column="1" Margin="5 0 0 0">
-                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="The runtime of the ongoing respectively last executed job">
+                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="Tiempo de ejecución del trabajo en curso o del último ejecutado">
                     <TextBlock Style="{StaticResource StyleInfoPanelTextBlock}"  x:Name="TextBlockSolutionTime" Text="0:00:00"/>
                 </StackPanel>
-                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="The current update-speed used for simulation">
+                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="Velocidad de actualización actual utilizada en la simulación">
                     <TextBlock Style="{StaticResource StyleInfoPanelTextBlock}" Text="Speed:"/>
                     <TextBlock Style="{StaticResource StyleInfoPanelTextBlock}" Name="TextBlockUpdateSpeed" Text="1"/>
                 </StackPanel>
-                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="The current tier that is visualized">
+                <StackPanel Style="{StaticResource StyleInfoPanelStack}" ToolTip="Nivel de la planta que se está visualizando">
                     <TextBlock Style="{StaticResource StyleInfoPanelTextBlock}" Text="Tier:"/>
                     <TextBlock Style="{StaticResource StyleInfoPanelTextBlock}" Name="TextBlockTierInFocus" Text="-"/>
                 </StackPanel>
@@ -162,75 +162,75 @@
             <!-- Controls -->
             <TabControl Grid.Row="0" Grid.Column="0" TabStripPlacement="Top" Margin="2">
                 <!-- Base controls -->
-                <TabItem Name="TabBaseControls" Header="Base Controls" ToolTip="Execute showcases and single jobs">
+                <TabItem Name="TabBaseControls" Header="Controles básicos" ToolTip="Ejecuta demostraciones y trabajos individuales de la simulación">
                     <WrapPanel Orientation="Horizontal">
-                        <Button Style="{StaticResource StyleGeneralButton}"  Name="ButtonSlowDown" Click="ButtonSlowDown_Click" ToolTip="Slows down the simulation">
+                        <Button Style="{StaticResource StyleGeneralButton}"  Name="ButtonSlowDown" Click="ButtonSlowDown_Click" ToolTip="Reduce la velocidad de la simulación">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageSlowDown" Source="data/rewind.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonStart" Click="ButtonStart_Click" ToolTip="Starts the simulation">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonStart" Click="ButtonStart_Click" ToolTip="Inicia la simulación">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageStart" Source="data/play.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonPause" Click="ButtonPause_Click" IsEnabled="False" Visibility="Collapsed" ToolTip="Pauses the simulation">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonPause" Click="ButtonPause_Click" IsEnabled="False" Visibility="Collapsed" ToolTip="Pausa la simulación">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImagePause" Source="data/pause.png" Visibility="Collapsed"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSpeedUp" Click="ButtonSpeedUp_Click" ToolTip="Speeds up the simulation">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSpeedUp" Click="ButtonSpeedUp_Click" ToolTip="Acelera la simulación">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageSpeedUp" Source="data/fast_forward.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonStop" Click="ButtonStop_Click" IsEnabled="False" ToolTip="Stops the simulation">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonStop" Click="ButtonStop_Click" IsEnabled="False" ToolTip="Detiene la simulación">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageStop" Source="data/cancel.png" Visibility="Hidden"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonViewMode" Click="ButtonViewMode_Click" ToolTip="Changes the viewmode">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonViewMode" Click="ButtonViewMode_Click" ToolTip="Cambia el modo de visualización">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageViewMode" Source="data/eye.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSnapshot" Click="ButtonSnapshot_Click" ToolTip="Takes a snapshot">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSnapshot" Click="ButtonSnapshot_Click" ToolTip="Guarda una captura de la vista actual">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageSnapshot" Source="data/camera.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadInstance" Click="ButtonLoadInstance_Click" ToolTip="Loads the instance from the specified file">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadInstance" Click="ButtonLoadInstance_Click" ToolTip="Carga la instancia desde el archivo indicado">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageLoadInstance" Source="data/folder.png"></Image>
                         </Button>
-                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonShowInfo" Click="ButtonShowInfo_Click" ToolTip="Shows the information panel">
+                        <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonShowInfo" Click="ButtonShowInfo_Click" ToolTip="Muestra u oculta el panel de información">
                             <Image Style="{StaticResource StyleButtonImage}" Name="ImageShowInfo" Source="data/info27.png"></Image>
                         </Button>
                     </WrapPanel>
                 </TabItem>
                 <!-- Instance generation controls -->
-                <TabItem Name="TabInstanceGeneration" Header="Instances" ToolTip="Functionality to generate instances and configurations with certain parameters">
+                <TabItem Name="TabInstanceGeneration" Header="Instancias" ToolTip="Permite generar instancias y configuraciones con parámetros personalizados">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="2">
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonGenerateInstance" Click="ButtonGenerateInstance_Click" ToolTip="Generates a new instance with the specified parameters">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonGenerateInstance" Click="ButtonGenerateInstance_Click" ToolTip="Genera una nueva instancia con los parámetros indicados">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageGenerateInstance" Source="data/checkmark2.png"></Image>
                             </Button>
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSanityCheck" Click="ButtonSanityCheck_Click" ToolTip="Does a small manual sanity check of the present instance">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSanityCheck" Click="ButtonSanityCheck_Click" ToolTip="Realiza una comprobación manual de coherencia sobre la instancia actual">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageSanityCheck" Source="data/hand_thumbsup.png"></Image>
                             </Button>
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveInstance" Click="ButtonSaveInstance_Click" ToolTip="Saves the instance to the specified file">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveInstance" Click="ButtonSaveInstance_Click" ToolTip="Guarda la instancia en el archivo indicado">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveInstance" Source="data/disk2.png"></Image>
                             </Button>
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveLayout" Click="ButtonSaveLayout_Click" ToolTip="Saves the layout configuration to the specified file">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveLayout" Click="ButtonSaveLayout_Click" ToolTip="Guarda la configuración de diseño en el archivo indicado">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveLayout" Source="data/disk4.png"></Image>
                             </Button>
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSettingConfiguration" Click="ButtonSaveSettingConfiguration_Click" ToolTip="Saves the setting configuration to the specified file">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSettingConfiguration" Click="ButtonSaveSettingConfiguration_Click" ToolTip="Guarda la configuración de parámetros en el archivo indicado">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveSettingConfiguration" Source="data/disk5.png"></Image>
                             </Button>
-                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveControlConfiguration" Click="ButtonSaveControlConfiguration_Click" ToolTip="Saves the control configuration to the specified file">
+                            <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveControlConfiguration" Click="ButtonSaveControlConfiguration_Click" ToolTip="Guarda la configuración de control en el archivo indicado">
                                 <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveControlConfiguration" Source="data/disk7.png"></Image>
                             </Button>
                         </StackPanel>
-                        <GroupBox Header="Parameters">
+                        <GroupBox Header="Parámetros">
                             <StackPanel Orientation="Horizontal">
-                                <GroupBox Header="Instance layout">
+                                <GroupBox Header="Diseño de la instancia">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
                                         <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelInstanceLayout">
                                         </StackPanel>
                                     </ScrollViewer>
                                 </GroupBox>
-                                <GroupBox Header="Setting configuration">
+                                <GroupBox Header="Configuración de parámetros">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
                                         <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSettingConfiguration">
                                         </StackPanel>
                                     </ScrollViewer>
                                 </GroupBox>
-                                <GroupBox Header="Controller configuration">
+                                <GroupBox Header="Configuración del controlador">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
                                         <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelControlConfiguration">
                                         </StackPanel>
@@ -241,79 +241,79 @@
                     </StackPanel>
                 </TabItem>
                 <!-- Order and item generation controls -->
-                <TabItem Name="TabOrderGeneration" Header="Orders" ToolTip="Functionality to generate orders and items with certain parameters">
+                <TabItem Name="TabOrderGeneration" Header="Pedidos" ToolTip="Permite generar pedidos y artículos con parámetros personalizados">
                     <TabControl TabStripPlacement="Top" Margin="2">
-                        <TabItem Name="TabOrderGenerationSimple" Header="Simple item generation" ToolTip="Functionality configure the online generation of simple items">
+                        <TabItem Name="TabOrderGenerationSimple" Header="Generación simple de artículos" ToolTip="Configura la generación en línea de artículos simples">
                             <StackPanel Orientation="Vertical">
-                                <GroupBox Header="Parameters">
+                                <GroupBox Header="Parámetros">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
                                         <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSimpleItemConfiguration" />
                                     </ScrollViewer>
                                 </GroupBox>
                                 <StackPanel Orientation="Horizontal" Margin="2">
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSimpleItemGeneratorConfig" Click="ButtonSaveSimpleItemGeneratorConfig_Click" ToolTip="Saves the configuration for the generator of simple items">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSimpleItemGeneratorConfig" Click="ButtonSaveSimpleItemGeneratorConfig_Click" ToolTip="Guarda la configuración del generador de artículos simples">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveSimpleItemGeneratorConfig" Source="data/hammerdisk1.png"></Image>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
-                        <TabItem Name="TabOrderGenerationFixed" Header="Alphabet order generation" ToolTip="Functionality to generate order-lists based on colored words for fixed mode">
+                        <TabItem Name="TabOrderGenerationFixed" Header="Generación alfabética de pedidos" ToolTip="Genera listas de pedidos basadas en palabras coloreadas para el modo fijo">
                             <StackPanel Orientation="Vertical">
-                                <GroupBox Header="Parameters">
+                                <GroupBox Header="Parámetros">
                                     <TreeView Style="{StaticResource StyleParameterTree}">
-                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="General" ToolTip="Basic order-list parameters">
+                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="General" ToolTip="Parámetros básicos de la lista de pedidos">
                                             <WrapPanel Style="{StaticResource StyleGeneratorElementCollection}">
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The word file to use">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Archivo de palabras que se utilizará">
                                                     <TextBlock Text="WordFile: " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="120" Text="Smalljargon.txt" Name="TextBoxOrderWordFile"/>
                                                 </WrapPanel>
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The time during which orders will be placed">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Intervalo de tiempo durante el que se generarán pedidos">
                                                     <TextBlock Text="Time (min/max): " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="0" Name="TextBoxOrderTimeMin"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="3600" Name="TextBoxOrderTimeMax"/>
                                                 </WrapPanel>
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The seed to use">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Semilla aleatoria utilizada en la generación">
                                                     <TextBlock Text="Seed: " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="0" Name="TextBoxOrderSeed"/>
                                                 </WrapPanel>
                                             </WrapPanel>
                                         </TreeViewItem>
-                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Orders" ToolTip="Order related parameters">
+                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Pedidos" ToolTip="Parámetros relacionados con los pedidos">
                                             <WrapPanel Style="{StaticResource StyleGeneratorElementCollection}">
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The number of orders to generate">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Número de pedidos a generar">
                                                     <TextBlock Text="Count: " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="100" Name="TextBoxOrderCount"/>
                                                 </WrapPanel>
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The number of items per position">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Número de artículos por posición">
                                                     <TextBlock Text="Position (min/max): " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="1" Name="TextBoxOrderPositionMin"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="1" Name="TextBoxOrderPositionMax"/>
                                                 </WrapPanel>
                                             </WrapPanel>
                                         </TreeViewItem>
-                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Bundles" ToolTip="Bundle related parameters">
+                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Bundles" ToolTip="Parámetros relacionados con los lotes">
                                             <WrapPanel Style="{StaticResource StyleGeneratorElementCollection}">
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The relative amount of bundles to generate (compared to the items necessary for the orders)">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Cantidad relativa de lotes a generar (respecto a los artículos necesarios para los pedidos)">
                                                     <TextBlock Text="Relative amount: " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="1.1" Name="TextBoxOrderBundlesRelativeAmount"/>
                                                 </WrapPanel>
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The number of items per bundle">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Número de artículos por lote">
                                                     <TextBlock Text="Size (min/max): " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="8" Name="TextBoxOrderBundleSizeMin"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="18" Name="TextBoxOrderBundleSizeMax"/>
                                                 </WrapPanel>
                                             </WrapPanel>
                                         </TreeViewItem>
-                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Items" ToolTip="Item related parameters">
+                                        <TreeViewItem Style="{StaticResource StyleGeneratorCategoryNode}" Header="Items" ToolTip="Parámetros relacionados con los artículos">
                                             <WrapPanel Style="{StaticResource StyleGeneratorElementCollection}">
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The probabilities of the colors">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Probabilidades de los colores">
                                                     <TextBlock Text="Probabilities (R/G/B/Y): " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0.5" Name="TextBoxOrderR"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0.3" Name="TextBoxOrderG"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0.2" Name="TextBoxOrderB"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0" Name="TextBoxOrderY"/>
                                                 </WrapPanel>
-                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The item weight">
+                                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Peso de cada artículo">
                                                     <TextBlock Text="Weight (min/max): " Style="{StaticResource StyleDescription}"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="5" Name="TextBoxOrderWeightMin"/>
                                                     <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="5" Name="TextBoxOrderWeightMax"/>
@@ -323,7 +323,7 @@
                                     </TreeView>
                                 </GroupBox>
                                 <StackPanel Orientation="Horizontal" Margin="2">
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveOrderList" Click="ButtonSaveOrderList_Click" ToolTip="Saves a randomly generated order-list to the specified file">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveOrderList" Click="ButtonSaveOrderList_Click" ToolTip="Guarda en un archivo la lista de pedidos generada aleatoriamente">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveOrderList" Source="data/hammerdisk4.png"></Image>
                                     </Button>
                                 </StackPanel>
@@ -332,201 +332,201 @@
                     </TabControl>
                 </TabItem>
                 <!-- Settings controls -->
-                <TabItem Name="TabSettings" Header="Settings" ToolTip="All settings">
+                <TabItem Name="TabSettings" Header="Configuración" ToolTip="Configuración general de la visualización">
                     <StackPanel Orientation="Vertical">
-                        <GroupBox Header="Visuals" ToolTip="The visual settings">
+                        <GroupBox Header="Visualización" ToolTip="Opciones para ajustar la visualización">
                             <WrapPanel MaxWidth="500">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Tier (2D): " Style="{StaticResource StyleDescription}" ToolTip="The currently visualized tier (2D)"/>
+                                    <TextBlock Text="Nivel (2D): " Style="{StaticResource StyleDescription}" ToolTip="Nivel visualizado actualmente en la vista 2D"/>
                                     <ComboBox Name="ComboBoxTierSelection2D" Margin="2" VerticalAlignment="Center" Width="90" SelectedIndex="0" SelectionChanged="ComboBoxTierSelection2D_SelectionChanged">
-                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem>Ninguno</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Details (2D): " Style="{StaticResource StyleDescription}" ToolTip="The level of details when drawing in 2D"/>
-                                    <ComboBox Name="ComboBoxDrawMode2D" Margin="2" VerticalAlignment="Center" Width="90" SelectedIndex="0">
-                                        <ComboBoxItem>None</ComboBoxItem>
-                                        <ComboBoxItem>Debug</ComboBoxItem>
-                                        <ComboBoxItem>Full</ComboBoxItem>
+                                    <TextBlock Text="Detalle (2D): " Style="{StaticResource StyleDescription}" ToolTip="Nivel de detalle mostrado en la vista 2D"/>
+                                    <ComboBox Name="ComboBoxDrawMode2D" Margin="2" VerticalAlignment="Center" Width="90" SelectedIndex="0" SelectedValuePath="Tag">
+                                        <ComboBoxItem Tag="None">Ninguno</ComboBoxItem>
+                                        <ComboBoxItem Tag="Debug">Depuración</ComboBoxItem>
+                                        <ComboBoxItem Tag="Full">Completo</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Details (3D): " Style="{StaticResource StyleDescription}" ToolTip="The level of details when drawing in 3D"/>
-                                    <ComboBox Name="ComboBoxDrawMode3D" Margin="2" VerticalAlignment="Center" Width="90" SelectedIndex="0">
-                                        <ComboBoxItem>None</ComboBoxItem>
-                                        <ComboBoxItem>Aesthetics</ComboBoxItem>
-                                        <ComboBoxItem>Debug</ComboBoxItem>
+                                    <TextBlock Text="Detalle (3D): " Style="{StaticResource StyleDescription}" ToolTip="Nivel de detalle mostrado en la vista 3D"/>
+                                    <ComboBox Name="ComboBoxDrawMode3D" Margin="2" VerticalAlignment="Center" Width="90" SelectedIndex="0" SelectedValuePath="Tag">
+                                        <ComboBoxItem Tag="None">Ninguno</ComboBoxItem>
+                                        <ComboBoxItem Tag="Aesthetics">Estética</ComboBoxItem>
+                                        <ComboBoxItem Tag="Debug">Depuración</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
-                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawGoalMarker" IsChecked="False" ToolTip="Specifies whether to draw the goal marker">
-                                    DrawGoal
+                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawGoalMarker" IsChecked="False" ToolTip="Activa o desactiva el marcador del objetivo">
+                                    Dibujar objetivo
                                 </CheckBox>
-                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawDestMarker" IsChecked="False" ToolTip="Specifies whether to draw the destination marker">
-                                    DrawDestination
+                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawDestMarker" IsChecked="False" ToolTip="Activa o desactiva el marcador de destino">
+                                    Dibujar destino
                                 </CheckBox>
-                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawPathMarker" IsChecked="False" ToolTip="Specifies whether to draw the path marker">
-                                    DrawPath
+                                <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxVisDrawPathMarker" IsChecked="False" ToolTip="Activa o desactiva el marcador de trayectoria">
+                                    Dibujar ruta
                                 </CheckBox>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Heatmode: " Style="{StaticResource StyleDescription}" ToolTip="The heatmode to use for drawing"/>
+                                    <TextBlock Text="Modo de calor: " Style="{StaticResource StyleDescription}" ToolTip="Selecciona el modo de coloreado para los mapas de calor"/>
                                     <ComboBox Name="ComboBoxHeatMode" Margin="2" VerticalAlignment="Center" Width="170" SelectedIndex="0" SelectionChanged="ComboBoxHeatMode_SelectionChanged">
-                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem>Ninguno</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Bot coloring: " Style="{StaticResource StyleDescription}" ToolTip="Selects the way bots are colored"/>
+                                    <TextBlock Text="Color de robots: " Style="{StaticResource StyleDescription}" ToolTip="Elige cómo se colorean los robots"/>
                                     <ComboBox Name="ComboBoxBotColoringMode" Margin="2" VerticalAlignment="Center" Width="170" SelectedIndex="0" SelectionChanged="ComboBoxBotColoringMode_SelectionChanged">
-                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem>Ninguno</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
                             </WrapPanel>
                         </GroupBox>
                     </StackPanel>
                 </TabItem>
-                <TabItem Name="TabStatistics" Header="Misc" ToolTip="Miscellaneous functionality">
+                <TabItem Name="TabStatistics" Header="Herramientas" ToolTip="Herramientas adicionales de análisis">
                     <StackPanel Orientation="Vertical">
-                        <GroupBox Header="Statistics" ToolTip="The statistical settings">
-                            <StackPanel Orientation="Vertical" ToolTip="Specifies the statistical settings">
-                                <StackPanel Orientation="Horizontal" ToolTip="Specifies whether to output statistics">
+                        <GroupBox Header="Estadísticas" ToolTip="Opciones para recopilar estadísticas">
+                            <StackPanel Orientation="Vertical" ToolTip="Define las opciones de exportación de estadísticas">
+                                <StackPanel Orientation="Horizontal" ToolTip="Indica si se deben exportar estadísticas al cancelar la simulación">
                                     <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxWriteStatistics" IsChecked="False">
-                                        Write statistics to output folder after cancellation
+                                        Escribir estadísticas en la carpeta de salida al cancelar
                                     </CheckBox>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" ToolTip="Specifies where to write the statistics">
-                                    <TextBlock Text="Output Folder: " ToolTip="The output folder of the statistics"/>
+                                <StackPanel Orientation="Horizontal" ToolTip="Define dónde se guardarán las estadísticas generadas">
+                                    <TextBlock Text="Carpeta de salida: " ToolTip="Carpeta donde se almacenarán las estadísticas"/>
                                     <TextBox Style="{StaticResource StyleInputBox}" Width="200" Text="" Name="TextStatisicsOutputFolder" IsReadOnly="False"/>
                                     <Button Width="40" Click="SetStatisticalOutputFolder">...</Button>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Heatmaps" ToolTip="Tools to render heatmap based information">
+                        <GroupBox Header="Mapas de calor" ToolTip="Herramientas para representar información como mapas de calor">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Instance: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatInstance"/>
-                                    <TextBlock Text="Data: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDataFile"/>
-                                    <TextBlock Text="Tile-size: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDrawingInfoTileLength"/>
-                                    <TextBlock Text="Radius: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDrawingInfoRadius"/>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadHeatInstance" Click="ButtonLoadHeatInstance_Click" ToolTip="Sets the instance for heat rendering">
+                                    <TextBlock Text="Instancia: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatInstance"/>
+                                    <TextBlock Text="Datos: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDataFile"/>
+                                    <TextBlock Text="Tamaño de celda: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDrawingInfoTileLength"/>
+                                    <TextBlock Text="Radio: -" Style="{StaticResource StyleDescription}" Name="TextBlockHeatDrawingInfoRadius"/>
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadHeatInstance" Click="ButtonLoadHeatInstance_Click" ToolTip="Selecciona la instancia para generar el mapa de calor">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageLoadHeatInstance" Source="data/folder1.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadHeatInfo" Click="ButtonLoadHeatInfo_Click" ToolTip="Sets the data file for heat rendering">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadHeatInfo" Click="ButtonLoadHeatInfo_Click" ToolTip="Selecciona el archivo de datos para el mapa de calor">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageLoadHeatInfo" Source="data/folder5.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatJustDraw" Click="ButtonHeatJustDraw_Click" ToolTip="Only loads and draws the selected instance without reading heat information">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatJustDraw" Click="ButtonHeatJustDraw_Click" ToolTip="Carga y dibuja la instancia seleccionada sin leer información de calor">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatJustDraw" Source="data/pencil.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatRedraw" Click="ButtonHeatRedraw_Click" ToolTip="Refreshes the heatmap rendering with the given parameters">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatRedraw" Click="ButtonHeatRedraw_Click" ToolTip="Actualiza el mapa de calor con los parámetros indicados">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatRedraw" Source="data/heatmap.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatDrawAll" Click="ButtonHeatDrawAll_Click" ToolTip="Renders all heatmaps for all subfolders exposing simulation results (directory supplying all necessary instances has to be given first)">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatDrawAll" Click="ButtonHeatDrawAll_Click" ToolTip="Genera mapas de calor para todas las subcarpetas con resultados de simulación (requiere indicar primero la carpeta de instancias)">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatDrawAll" Source="data/heatmap4.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatDrawTimeWindows" Click="ButtonHeatDrawTimeWindows_Click" ToolTip="Renders heatmaps for all time-windows of the given length.">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatDrawTimeWindows" Click="ButtonHeatDrawTimeWindows_Click" ToolTip="Genera mapas de calor para todas las ventanas temporales de la duración indicada">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatDrawTimeWindows" Source="data/heatmap6.png"></Image>
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawBots" IsChecked="False" ToolTip="Specifies whether to draw the robots">
-                                        DrawBots
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawBots" IsChecked="False" ToolTip="Indica si se muestran los robots en el mapa">
+                                        Dibujar robots
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawPods" IsChecked="False" ToolTip="Specifies whether to draw the pods">
-                                        DrawPods
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawPods" IsChecked="False" ToolTip="Indica si se muestran los pods en el mapa">
+                                        Dibujar pods
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawStations" IsChecked="False" ToolTip="Specifies whether to draw the stations">
-                                        DrawStations
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawStations" IsChecked="False" ToolTip="Indica si se muestran las estaciones en el mapa">
+                                        Dibujar estaciones
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawSemaphores" IsChecked="False" ToolTip="Specifies whether to draw the semaphores">
-                                        DrawSemaphores
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawSemaphores" IsChecked="False" ToolTip="Indica si se muestran los semáforos en el mapa">
+                                        Dibujar semáforos
                                     </CheckBox>
                                 </StackPanel>
-                                <GroupBox Header="BotTasks">
+                                <GroupBox Header="Tareas de robots">
                                     <StackPanel x:Name="StackPanelHeatmapBotTasks" Orientation="Horizontal">
                                     </StackPanel>
                                 </GroupBox>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Opacity: " Style="{StaticResource StyleDescription}"/>
+                                    <TextBlock Text="Opacidad: " Style="{StaticResource StyleDescription}"/>
                                     <Slider x:Name="SliderHeatOpacity" Margin="2" VerticalAlignment="Center" Width="70" TickFrequency="0.05" IsSnapToTickEnabled="True" Value="0.7" Maximum="1" ValueChanged="SliderHeatOpacity_ValueChanged" />
                                     <TextBox x:Name="TextBoxHeatOpacity" Margin="2" VerticalAlignment="Center" Width="30" Text="{Binding Value, ElementName=SliderHeatOpacity, UpdateSourceTrigger=PropertyChanged}" />
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawInBackground" IsChecked="False" ToolTip="Specifies whether to draw the heatmap behind the instance visualization or in front of it">
-                                        InBackground
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatDrawInBackground" IsChecked="False" ToolTip="Define si el mapa de calor se dibuja detrás de la instancia o sobre ella">
+                                        Dibujar detrás
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatTransparentCanvas" IsChecked="False" ToolTip="Specifies whether the canvas is transparent" Checked="CheckBoxHeatTransparentCanvas_Checked" Unchecked="CheckBoxHeatTransparentCanvas_Checked">
-                                        Transparent canvas
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatTransparentCanvas" IsChecked="False" ToolTip="Activa o desactiva la transparencia del lienzo" Checked="CheckBoxHeatTransparentCanvas_Checked" Unchecked="CheckBoxHeatTransparentCanvas_Checked">
+                                        Lienzo transparente
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatBichromaticColoring" IsChecked="False" ToolTip="Specifies whether to use bichromatic coloring instead of the rainbow version">
-                                        Bichromatic coloring
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatBichromaticColoring" IsChecked="False" ToolTip="Usa una coloración bicromática en lugar del degradado multicolor">
+                                        Coloración bicromática
                                     </CheckBox>
                                     <WrapPanel Style="{StaticResource StyleGeneratorElement}">
-                                        <TextBlock Text="Low color: " Style="{StaticResource StyleDescription}"/>
-                                        <ComboBox Name="ComboBoxHeatmapColoringFirstColor" Margin="2" VerticalAlignment="Center" SelectedIndex="2" SelectedValuePath="Content" ToolTip="The low color for bichromatic coloring">
-                                            <ComboBoxItem>Transparent</ComboBoxItem>
-                                            <ComboBoxItem>White</ComboBoxItem>
-                                            <ComboBoxItem>Black</ComboBoxItem>
-                                            <ComboBoxItem>Blue</ComboBoxItem>
-                                            <ComboBoxItem>Red</ComboBoxItem>
-                                            <ComboBoxItem>Green</ComboBoxItem>
-                                            <ComboBoxItem>Yellow</ComboBoxItem>
-                                            <ComboBoxItem>Purple</ComboBoxItem>
-                                            <ComboBoxItem>Lime</ComboBoxItem>
-                                            <ComboBoxItem>Navy</ComboBoxItem>
+                                        <TextBlock Text="Color mínimo: " Style="{StaticResource StyleDescription}"/>
+                                        <ComboBox Name="ComboBoxHeatmapColoringFirstColor" Margin="2" VerticalAlignment="Center" SelectedIndex="2" SelectedValuePath="Tag" ToolTip="Color mínimo utilizado en la coloración bicromática">
+                                            <ComboBoxItem Tag="Transparent">Transparente</ComboBoxItem>
+                                            <ComboBoxItem Tag="White">Blanco</ComboBoxItem>
+                                            <ComboBoxItem Tag="Black">Negro</ComboBoxItem>
+                                            <ComboBoxItem Tag="Blue">Azul</ComboBoxItem>
+                                            <ComboBoxItem Tag="Red">Rojo</ComboBoxItem>
+                                            <ComboBoxItem Tag="Green">Verde</ComboBoxItem>
+                                            <ComboBoxItem Tag="Yellow">Amarillo</ComboBoxItem>
+                                            <ComboBoxItem Tag="Purple">Morado</ComboBoxItem>
+                                            <ComboBoxItem Tag="Lime">Verde lima</ComboBoxItem>
+                                            <ComboBoxItem Tag="Navy">Azul marino</ComboBoxItem>
                                         </ComboBox>
                                     </WrapPanel>
                                     <WrapPanel Style="{StaticResource StyleGeneratorElement}">
-                                        <TextBlock Text="High color: " Style="{StaticResource StyleDescription}"/>
-                                        <ComboBox Name="ComboBoxHeatmapColoringSecondColor" Margin="2" VerticalAlignment="Center" SelectedIndex="0" SelectedValuePath="Content" ToolTip="The high color for bichromatic coloring">
-                                            <ComboBoxItem>Transparent</ComboBoxItem>
-                                            <ComboBoxItem>White</ComboBoxItem>
-                                            <ComboBoxItem>Black</ComboBoxItem>
-                                            <ComboBoxItem>Blue</ComboBoxItem>
-                                            <ComboBoxItem>Red</ComboBoxItem>
-                                            <ComboBoxItem>Green</ComboBoxItem>
-                                            <ComboBoxItem>Yellow</ComboBoxItem>
-                                            <ComboBoxItem>Purple</ComboBoxItem>
-                                            <ComboBoxItem>Lime</ComboBoxItem>
-                                            <ComboBoxItem>Navy</ComboBoxItem>
+                                        <TextBlock Text="Color máximo: " Style="{StaticResource StyleDescription}"/>
+                                        <ComboBox Name="ComboBoxHeatmapColoringSecondColor" Margin="2" VerticalAlignment="Center" SelectedIndex="0" SelectedValuePath="Tag" ToolTip="Color máximo utilizado en la coloración bicromática">
+                                            <ComboBoxItem Tag="Transparent">Transparente</ComboBoxItem>
+                                            <ComboBoxItem Tag="White">Blanco</ComboBoxItem>
+                                            <ComboBoxItem Tag="Black">Negro</ComboBoxItem>
+                                            <ComboBoxItem Tag="Blue">Azul</ComboBoxItem>
+                                            <ComboBoxItem Tag="Red">Rojo</ComboBoxItem>
+                                            <ComboBoxItem Tag="Green">Verde</ComboBoxItem>
+                                            <ComboBoxItem Tag="Yellow">Amarillo</ComboBoxItem>
+                                            <ComboBoxItem Tag="Purple">Morado</ComboBoxItem>
+                                            <ComboBoxItem Tag="Lime">Verde lima</ComboBoxItem>
+                                            <ComboBoxItem Tag="Navy">Azul marino</ComboBoxItem>
                                         </ComboBox>
                                     </WrapPanel>
                                 </StackPanel>
                                 <WrapPanel>
-                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The length of the time-window when generating step-wise heatmaps in seconds">
-                                        <TextBlock Text="Time window: " Style="{StaticResource StyleDescription}"/>
+                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Duración de la ventana temporal al generar mapas de calor por pasos (en segundos)">
+                                        <TextBlock Text="Ventana temporal: " Style="{StaticResource StyleDescription}"/>
                                         <TextBox Style="{StaticResource StyleInputBox}" Width="50" Text="1200.0" Name="TextBoxHeatTimeWindowLength"/>
                                     </WrapPanel>
-                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The number of tiles used in x-dimension (tiles in y-dimension will get similar length)">
-                                        <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatTileLengthCountSwitch" IsChecked="True" ToolTip="Specifies whether the tile count or tile length is used" Checked="CheckBoxHeatTileLengthCountSwitch_Checked" Unchecked="CheckBoxHeatTileLengthCountSwitch_Checked">
-                                            #Tiles (x):
+                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Número de celdas empleadas en el eje X (las del eje Y tendrán tamaño similar)">
+                                        <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatTileLengthCountSwitch" IsChecked="True" ToolTip="Permite alternar entre definir número de celdas o su tamaño" Checked="CheckBoxHeatTileLengthCountSwitch_Checked" Unchecked="CheckBoxHeatTileLengthCountSwitch_Checked">
+                                            #Celdas (x):
                                         </CheckBox>
-                                        <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="100" Name="TextBoxHeatTilesX" ToolTip="The number of tiles in x-dimension (tiles in y-dimension will get similar length)"/>
-                                        <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0.2" Name="TextBoxHeatTileLengthX" Visibility="Collapsed" ToolTip="The length of a tile in x-dimension (tiles in y-dimension will get similar length)"/>
+                                        <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="100" Name="TextBoxHeatTilesX" ToolTip="Número de celdas en el eje X (las del eje Y tendrán tamaño similar)"/>
+                                        <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="0.2" Name="TextBoxHeatTileLengthX" Visibility="Collapsed" ToolTip="Longitud de cada celda en el eje X (las del eje Y tendrán tamaño similar)"/>
                                     </WrapPanel>
-                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The radius for filtering the datapoints relevant for a tile in instance units">
-                                        <TextBlock Text="Relative radius: " Style="{StaticResource StyleDescription}"/>
+                                    <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Radio utilizado para filtrar los datos relevantes de cada celda">
+                                        <TextBlock Text="Radio relativo: " Style="{StaticResource StyleDescription}"/>
                                         <TextBox Style="{StaticResource StyleInputBox}" Width="30" Text="4.0" Name="TextBoxHeatRadius"/>
                                     </WrapPanel>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatLogarithmic" IsChecked="True" ToolTip="Specifies whether to use a logarithmic scale for the values">
-                                        Log-scale
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatLogarithmic" IsChecked="True" ToolTip="Indica si se usa escala logarítmica para los valores">
+                                        Escala logarítmica
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatWeightByDistance" IsChecked="True" ToolTip="Specifies whether to weight the values of the datapoints by the distance to the tile center">
-                                        WeightByDistance
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatWeightByDistance" IsChecked="True" ToolTip="Pondera los valores según la distancia al centro de la celda">
+                                        Ponderar por distancia
                                     </CheckBox>
-                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatManhattan" IsChecked="False" ToolTip="Specifies whether to use the manhattan distance metric instead of the euclidean one">
-                                        Manhattan
+                                    <CheckBox Style="{StaticResource StyleParameterCheckBox}" Name="CheckBoxHeatManhattan" IsChecked="False" ToolTip="Utiliza la métrica Distancia Manhattan en lugar de la euclidiana">
+                                        Distancia Manhattan
                                     </CheckBox>
                                 </WrapPanel>
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Flip book debugging">
+                        <GroupBox Header="Depuración cuadro a cuadro">
                             <StackPanel Orientation="Vertical">
-                                <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadFlipBookDebuggingMaterial" Click="ButtonLoadFlipBookDebuggingMaterial_Click" ToolTip="Loads an instance with polled location data attached in order to visually debug">
+                                <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadFlipBookDebuggingMaterial" Click="ButtonLoadFlipBookDebuggingMaterial_Click" ToolTip="Carga una instancia con datos muestreados para depurar visualmente">
                                     <Image Style="{StaticResource StyleButtonImage}" Name="ImageLoadFlipBookDebuggingMaterial" Source="data/screwdriver4.png"></Image>
                                 </Button>
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Experimental" ToolTip="Some experimental functionality">
+                        <GroupBox Header="Experimental" ToolTip="Funciones experimentales para pruebas">
                             <WrapPanel>
-                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="The radius for filtering the datapoints relevant for a tile in instance units">
+                                <WrapPanel Style="{StaticResource StyleGeneratorElement}" ToolTip="Radio utilizado para filtrar los datos relevantes de cada celda">
                                     <TextBlock Text="Onboard camera: " Style="{StaticResource StyleDescription}"/>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="Button3DOnboardCamera" Click="Button3DOnboardCamera_Click" ToolTip="Acivates the onboard camera for a randomly chosen bot">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="Button3DOnboardCamera" Click="Button3DOnboardCamera_Click" ToolTip="Activa la cámara a bordo de un robot elegido aleatoriamente">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="Image3DOnboardCamera" Source="data/eye2.png"></Image>
                                     </Button>
                                 </WrapPanel>
@@ -534,36 +534,36 @@
                         </GroupBox>
                     </StackPanel>
                 </TabItem>
-                <TabItem Name="TabEvents" Header="Remote" ToolTip="Remote control related features">
+                <TabItem Name="TabEvents" Header="Control remoto" ToolTip="Funciones relacionadas con el control remoto">
                     <StackPanel Orientation="Vertical">
-                        <GroupBox Header="Remote connection">
+                        <GroupBox Header="Conexión remota">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="IP: " Style="{StaticResource StyleDescription}"  />
                                     <TextBox Style="{StaticResource StyleInputBox}" Width="95" Text="127.0.0.1" Name="TextBoxRemoteIP" />
-                                    <TextBlock Text="Port: " Style="{StaticResource StyleDescription}"  />
+                                    <TextBlock Text="Puerto: " Style="{StaticResource StyleDescription}"  />
                                     <TextBox Style="{StaticResource StyleInputBox}" Width="35" Text="888" Name="TextBoxRemotePort" />
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonConnectControl" Click="ButtonConnectControl_Click" ToolTip="Connects this control client to the server managing the hardware">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonConnectControl" Click="ButtonConnectControl_Click" ToolTip="Conecta este cliente de control con el servidor que gestiona el hardware">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageConnectControl" Source="data/connect.png"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonDisconnectControl" Click="ButtonDisconnectControl_Click" Visibility="Collapsed" ToolTip="Disconnects this control client to the server managing the hardware">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonDisconnectControl" Click="ButtonDisconnectControl_Click" Visibility="Collapsed" ToolTip="Desconecta este cliente de control del servidor que gestiona el hardware">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageDisconnectControl" Source="data/disconnect.png"></Image>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Fire virtual events" ToolTip="Fire virtual Events">
+                        <GroupBox Header="Generar eventos virtuales" ToolTip="Lanza eventos virtuales hacia el sistema">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="BotID"/>
+                                    <TextBlock Text="ID del robot"/>
                                     <TextBox Style="{StaticResource StyleInputBox}" Width="20" Text="" Name="TextBoxEventBot" IsReadOnly="False" Height="20"/>
-                                    <TextBlock Text="WaypointID" Margin="10,0,0,0"/>
+                                    <TextBlock Text="ID del punto" Margin="10,0,0,0"/>
                                     <TextBox Style="{StaticResource StyleInputBox}" Width="40" Text="" Name="TextBoxEventWaypoint" IsReadOnly="False"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="ButtonRemoteWaypointReached" Content="OnWaypointReached" Click="FireOnWaypointReached" KeyDown="ButtonRemoteWaypointReached_KeyDown" />
-                                    <Button x:Name="ButtonRemotePickedUpPod" Content="OnPickedUpPod" Click="FireOnPickedUpPodBot" KeyDown="ButtonRemotePickedUpPod_KeyDown" Margin="10,0,0,0" />
-                                    <Button x:Name="ButtonRemoteSetDownPod" Content="OnSetDownPod" Click="FireOnSetDownPodBot" KeyDown="ButtonRemoteSetDownPod_KeyDown" Margin="10,0,0,0" />
+                                    <Button x:Name="ButtonRemoteWaypointReached" Content="Notificar llegada a punto" Click="FireOnWaypointReached" KeyDown="ButtonRemoteWaypointReached_KeyDown" />
+                                    <Button x:Name="ButtonRemotePickedUpPod" Content="Notificar recogida de pod" Click="FireOnPickedUpPodBot" KeyDown="ButtonRemotePickedUpPod_KeyDown" Margin="10,0,0,0" />
+                                    <Button x:Name="ButtonRemoteSetDownPod" Content="Notificar liberación de pod" Click="FireOnSetDownPodBot" KeyDown="ButtonRemoteSetDownPod_KeyDown" Margin="10,0,0,0" />
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>

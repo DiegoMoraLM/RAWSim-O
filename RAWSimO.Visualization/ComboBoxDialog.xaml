@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="ComboBoxDialog" SizeToContent="Height" Width="300" ResizeMode="NoResize">
     <StackPanel Margin="6">
-        <TextBlock Text="Choose one of the options below:" Margin="2" />
+        <TextBlock Text="Elige una de las opciones disponibles:" Margin="2" />
         <ComboBox x:Name="ComboBoxChoices" Margin="2" />
-        <Button x:Name="ButtonOK" Content="OK" Click="ButtonOK_Click" Margin="2" />
+        <Button x:Name="ButtonOK" Content="Aceptar" Click="ButtonOK_Click" Margin="2" />
     </StackPanel>
 </Window>
